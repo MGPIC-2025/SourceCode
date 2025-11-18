@@ -1,0 +1,26 @@
+{
+  "import": [
+    "Lampese/MGPIC_2025/global",
+    "Lampese/MGPIC_2025/global_msg",
+    "Lampese/MGPIC_2025/game",
+    "Lampese/MGPIC_2025/save"
+  ],
+  "link": {
+    "js": {
+      "format": "esm",
+      "exports": [
+        "get_global",
+        "get_global_info",
+        "global_gacha",
+        "global_craft",
+        "global_get_resource",
+        "global_get_copper_list",
+        "global_info_subscribe",
+        "global_upgrade_copper",
+        "global_import_save",
+        "global_export_save",
+        "eventloop"
+      ]
+    }
+  }
+}

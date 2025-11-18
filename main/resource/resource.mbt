@@ -1,0 +1,18 @@
+///|
+pub(all) enum ResourceType {
+  HeartCrystalDust
+  RecallGear
+  SpiritalSpark
+  RefinedCopper
+  ResonantCrystal
+} derive(Show, Eq, Hash, ToJson)
+
+///|
+pub struct ResourceCost {
+  cost : Array[(ResourceType, Int)]
+} derive(ToJson)
+
+///|
+pub fn ResourceCost::new(cost : Array[(ResourceType, Int)]) -> ResourceCost {
+  { cost, }
+}

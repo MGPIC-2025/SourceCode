@@ -1,0 +1,30 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Lampese/MGPIC_2025/global"
+
+import(
+  "Lampese/MGPIC_2025/global_resource"
+  "Lampese/MGPIC_2025/warehouse"
+)
+
+// Values
+let global : Global
+
+// Errors
+
+// Types and methods
+pub struct Global {
+  mut warehouse : @warehouse.Warehouse
+  bag : @global_resource.Bag
+}
+fn Global::craft(Self) -> String
+fn Global::gacha(Self) -> String
+fn Global::get_bag(Self) -> String
+fn Global::get_copper_list(Self) -> String
+fn Global::get_resource(Self) -> String
+fn Global::new() -> Self
+fn Global::upgrade_copper(Self, Int) -> String
+
+// Type aliases
+
+// Traits
+

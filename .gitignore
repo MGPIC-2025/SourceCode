@@ -1,0 +1,17 @@
+dist
+.DS_Store
+src/main.js
+node_modules
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+*.env

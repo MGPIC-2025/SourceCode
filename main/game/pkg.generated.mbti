@@ -1,0 +1,27 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Lampese/MGPIC_2025/game"
+
+import(
+  "Lampese/MGPIC_2025/global_resource"
+)
+
+// Values
+fn cost_drop_item(Array[(@global_resource.Item, Double)]) -> @global_resource.Item?
+
+fn eventloop(String) -> Unit
+
+let structure_info_map : Map[String, StructureBase]
+
+// Errors
+
+// Types and methods
+type MapBlock
+fn MapBlock::new() -> Self
+
+type StructureBase
+impl ToJson for StructureBase
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,368 @@
+///|
+/// 敌人信息列表（所有敌人的配置数据）
+///
+/// 该数组包含游戏中所有敌人的基础信息配置。每个敌人配置包括等级、生命值、攻击力、
+/// 防御力、闪避、攻击范围、速度、名称、类型、描述、掉落物品、召唤消耗等完整数据。
+/// 这些数据用于游戏逻辑生成敌人、计算属性、显示信息等。敌人列表包含从等级1到等级6
+/// 的所有敌人，包括两个BOSS敌人。
+///
+/// 敌人列表（按等级分类）：
+/// 等级1：
+/// - 哥布林：25生命值，8攻击，3防御，0闪避，攻击范围1，速度2
+/// - 锈蚀巡游者：30生命值，7攻击，5防御，0闪避，攻击范围1，速度1
+///
+/// 等级2：
+/// - 齿轮斥候：35生命值，12攻击，5防御，10闪避，攻击范围1，速度4
+/// - 管风琴号手：40生命值，16攻击，8防御，5闪避，攻击范围3，速度2
+///
+/// 等级3：
+/// - 蒸汽拳手：70生命值，22攻击，15防御，0闪避，攻击范围1，速度1
+/// - 发条刺客：55生命值，30攻击，4防御，20闪避，攻击范围1，速度3
+///
+/// 等级4：
+/// - 锅炉吞噬者：110生命值，30攻击，20防御，0闪避，攻击范围1，速度2
+/// - 镜面编织者：50生命值，32攻击，10防御，70闪避，攻击范围2，速度3
+///
+/// 等级5：
+/// - 巨锤守卫：250生命值，45攻击，35防御，5闪避，攻击范围2，速度1
+/// - 差分机妖：100生命值，50攻击，10防御，25闪避，攻击范围2，速度5
+/// - 心源畸变体：160生命值，55攻击，15防御，0闪避，攻击范围2，速度2
+///
+/// 等级6（BOSS）：
+/// - （BOSS）织网夫人·夏特拉：300生命值，60攻击，20防御，30闪避，攻击范围3，速度3
+/// - （BOSS）废械吞噬者·饕餮：500生命值，40攻击，40防御，0闪避，攻击范围1，速度2
+///
+/// 注意事项：
+/// - 数组包含所有敌人的完整配置数据
+/// - 每个敌人都有掉落物品和召唤消耗配置
+/// - BOSS敌人有特殊的背景故事和描述
+/// - 敌人配置用于生成敌人实例和显示敌人信息
+let enemy_list : Array[EnemyBase] = [
+  {
+    level: 1,
+    health: 25,
+    attack: 8,
+    defense: 3,
+    dodge: 0,
+    attack_range: 1,
+    speed: 2,
+    name: "哥布林",
+    enemy_type: "goblin",
+    description: "哥布林并非铜曜王朝的原生种族，而是一群在王朝崩溃后，趁机潜入地牢的'拾荒者'。它们对心源科技一知半解，但天生对机械有着诡异的亲和力，擅长拆解、偷窃和利用废墟中的一切。它们不是最强大的敌人，但非常狡猾，会设置陷阱、偷走玩家的临时增益，或是呼叫同伴。击败它们有时能获得一些意想不到的小玩意和零件。",
+    asset_url: "/assets/enemy/goblin/goblin.webp",
+    model_url: "/assets/enemy/goblin/goblin.glb",
+    drop_items: [(RecallGear, (0, 1)), (RefinedCopper, (1, 1))],
+    summon_cost: ResourceCost::new([(RefinedCopper, 2), (RecallGear, 1)]),
+  },
+  {
+    level: 1,
+    health: 30,
+    attack: 7,
+    defense: 5,
+    dodge: 0,
+    attack_range: 1,
+    speed: 1,
+    name: "锈蚀巡游者",
+    enemy_type: "cruiser",
+    description: "曾是王城负责除锈保养的工役，核心程序错乱后，反而开始传播锈蚀。它们是地牢中最常见的退化力量。",
+    asset_url: "/assets/enemy/cruiser/cruiser.webp",
+    model_url: "/assets/enemy/cruiser/cruiser.glb",
+    drop_items: [(ResonantCrystal, (0, 1)), (HeartCrystalDust, (1, 1))],
+    summon_cost: ResourceCost::new([(RefinedCopper, 1), (HeartCrystalDust, 2)]),
+  },
+  {
+    level: 2,
+    health: 35,
+    attack: 12,
+    defense: 5,
+    dodge: 10,
+    attack_range: 1,
+    speed: 4,
+    name: "齿轮斥候",
+    enemy_type: "scout",
+    description: "朝军队用来巡逻和送信的自动机械犬。失控后，它们依然在漫无目的地'巡逻'，并将任何移动单位视为入侵者。",
+    asset_url: "/assets/enemy/scout/scout.webp",
+    model_url: "/assets/enemy/scout/scout.glb",
+    drop_items: [(RecallGear, (1, 2)), (RefinedCopper, (0, 1))],
+    summon_cost: ResourceCost::new([
+      (RefinedCopper, 3),
+      (RecallGear, 2),
+      (HeartCrystalDust, 1),
+    ]),
+  },
+  {
+    level: 2,
+    health: 40,
+    attack: 16,
+    defense: 8,
+    dodge: 5,
+    attack_range: 3,
+    speed: 2,
+    name: "管风琴号手",
+    enemy_type: "horn",
+    description: "皇家乐团的自动乐器成员之一，原本奏响庄严乐章。如今，它的乐曲变成了撕裂耳膜、扰乱心智的噪音攻击。",
+    asset_url: "/assets/enemy/horn/horn.webp",
+    model_url: "/assets/enemy/horn/horn.glb",
+    drop_items: [(ResonantCrystal, (1, 2)), (HeartCrystalDust, (0, 1))],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 2),
+      (ResonantCrystal, 3),
+      (SpiritalSpark, 1),
+    ]),
+  },
+  {
+    level: 3,
+    health: 70,
+    attack: 22,
+    defense: 15,
+    dodge: 0,
+    attack_range: 1,
+    speed: 1,
+    name: "蒸汽拳手",
+    enemy_type: "boxer",
+    description: " 矿区使用的重型劳工铜偶，拥有惊人的力量。现在，它们只会重复最简单的指令：用蒸汽动力重拳粉碎眼前的障碍。",
+    asset_url: "/assets/enemy/boxer/boxer.webp",
+    model_url: "/assets/enemy/boxer/boxer.glb",
+    drop_items: [
+      (RecallGear, (1, 3)),
+      (ResonantCrystal, (1, 2)),
+      (RefinedCopper, (0, 1)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 4),
+      (ResonantCrystal, 2),
+      (RefinedCopper, 8),
+      (SpiritalSpark, 3),
+    ]),
+  },
+  {
+    level: 3,
+    health: 55,
+    attack: 30,
+    defense: 4,
+    dodge: 20,
+    attack_range: 1,
+    speed: 3,
+    name: "发条刺客",
+    enemy_type: "assassin",
+    description: "阴影中的守护者，负责处理见不得光的威胁。程序失控后，它们的刺杀名单上写满了所有活物。",
+    asset_url: "/assets/enemy/assassin/assassin.webp",
+    model_url: "/assets/enemy/assassin/assassin.glb",
+    drop_items: [(RecallGear, (1, 2)), (ResonantCrystal, (0, 1))],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 2),
+      (HeartCrystalDust, 6),
+      (RefinedCopper, 6),
+      (SpiritalSpark, 1),
+    ]),
+  },
+  {
+    level: 4,
+    health: 110,
+    attack: 30,
+    defense: 20,
+    dodge: 0,
+    attack_range: 1,
+    speed: 2,
+    name: "锅炉吞噬者",
+    enemy_type: "devourer",
+    description: "地牢的能量回收单元，负责将废弃物转化为蒸汽动力。如今它变得无比贪婪，会主动吞噬任何金属物体，包括掉队的铜偶。",
+    asset_url: "/assets/enemy/devourer/devourer.glb",
+    model_url: "/assets/enemy/devourer/devourer.glb",
+    drop_items: [
+      (RecallGear, (2, 4)),
+      (ResonantCrystal, (1, 3)),
+      (RefinedCopper, (1, 2)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 6),
+      (ResonantCrystal, 4),
+      (RefinedCopper, 12),
+      (SpiritalSpark, 3),
+    ]),
+  },
+  {
+    level: 4,
+    health: 50,
+    attack: 32,
+    defense: 10,
+    dodge: 70,
+    attack_range: 2,
+    speed: 3,
+    name: "镜面编织者",
+    enemy_type: "mirror",
+    description: "用于宫廷娱乐和谜题守护的精密造物。它能创造以假乱真的幻象来迷惑入侵者，本身十分脆弱，但极难被真正触及。",
+    asset_url: "/assets/enemy/mirror/mirror.webp",
+    model_url: "/assets/enemy/mirror/mirror.glb",
+    drop_items: [
+      (RecallGear, (1, 2)),
+      (ResonantCrystal, (2, 3)),
+      (HeartCrystalDust, (1, 2)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 10),
+      (ResonantCrystal, 10),
+      (HeartCrystalDust, 10),
+      (SpiritalSpark, 3),
+    ]),
+  },
+  {
+    level: 5,
+    health: 250,
+    attack: 45,
+    defense: 35,
+    dodge: 5,
+    attack_range: 2,
+    speed: 1,
+    name: "巨锤守卫",
+    enemy_type: "guard",
+    description: "王城宝库和重要大门的守卫者。即使失控，它们依然固守着生前的位置，用最纯粹的力量碾碎一切未经许可的靠近者。",
+    asset_url: "/assets/enemy/guard/guard.webp",
+    model_url: "/assets/enemy/guard/guard.glb",
+    drop_items: [
+      (RecallGear, (2, 4)),
+      (ResonantCrystal, (2, 4)),
+      (RefinedCopper, (1, 2)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 10),
+      (ResonantCrystal, 10),
+      (RefinedCopper, 15),
+      (SpiritalSpark, 5),
+    ]),
+  },
+  {
+    level: 5,
+    health: 100,
+    attack: 50,
+    defense: 10,
+    dodge: 25,
+    attack_range: 2,
+    speed: 5,
+    name: "差分机妖",
+    enemy_type: "demon",
+    description: "王朝计算中心的智能核心碎片，拥有强大的逻辑运算能力。它将战斗视为一场需要'计算'和'优化'的数学问题，是极其难缠的精英敌人。",
+    asset_url: "/assets/enemy/demon/demon.webp",
+    model_url: "/assets/enemy/demon/demon.glb",
+    drop_items: [
+      (RecallGear, (3, 5)),
+      (ResonantCrystal, (2, 3)),
+      (HeartCrystalDust, (1, 2)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 10),
+      (ResonantCrystal, 15),
+      (RefinedCopper, 10),
+      (SpiritalSpark, 5),
+    ]),
+  },
+  {
+    level: 5,
+    health: 160,
+    attack: 55,
+    defense: 15,
+    dodge: 0,
+    attack_range: 2,
+    speed: 2,
+    name: "心源畸变体",
+    enemy_type: "variant",
+    description: "它曾是王朝庆典的中央娱乐单元——'欢宴主脑'。大休眠时，过量的心源能量没有摧毁它，反而让它陷入了永久的、失控的狂喜状态。它将地牢变成了它个人的派对现场，并'热情'地邀请（或者说强迫）所有闯入者加入它混乱的欢宴。它会用五彩的声光、抛洒的零件和看似可爱实则威力巨大的玩具进行攻击。击败它，就是终结这场永无止境的噪音派对。",
+    asset_url: "/assets/enemy/variant/variant.webp",
+    model_url: "/assets/enemy/variant/variant.glb",
+    drop_items: [
+      (RecallGear, (2, 3)),
+      (ResonantCrystal, (3, 5)),
+      (RefinedCopper, (1, 2)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 15),
+      (ResonantCrystal, 15),
+      (HeartCrystalDust, 20),
+      (RefinedCopper, 20),
+      (SpiritalSpark, 8),
+    ]),
+  },
+  {
+    level: 6,
+    health: 300,
+    attack: 60,
+    defense: 20,
+    dodge: 30,
+    attack_range: 3,
+    speed: 3,
+    name: "（BOSS）织网夫人·夏特拉",
+    enemy_type: "shatra",
+    description: "夏特拉曾是王朝的'信息架构师'，负责维护整个王城的心源能量网络。大休眠发生时，她为了稳定网络，选择将自己的核心与主控终端永久连接。数百年的孤独守护和能量侵蚀让她变得偏执，她认为任何外来者都是不稳定的'病毒'，会破坏她精心维持的、死寂的'平衡'。她会操纵整个地牢的机关和能量流来攻击玩家，将玩家视为需要清除的系统威胁。",
+    asset_url: "/assets/enemy/shatra/shatra.webp",
+    model_url: "/assets/enemy/shatra/shatra.glb",
+    drop_items: [
+      (RecallGear, (4, 6)),
+      (ResonantCrystal, (4, 6)),
+      (RefinedCopper, (2, 3)),
+      (HeartCrystalDust, (2, 3)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 30),
+      (ResonantCrystal, 30),
+      (HeartCrystalDust, 30),
+      (RefinedCopper, 30),
+      (SpiritalSpark, 10),
+    ]),
+  },
+  {
+    level: 6,
+    health: 500,
+    attack: 40,
+    defense: 40,
+    dodge: 0,
+    attack_range: 1,
+    speed: 2,
+    name: "（BOSS）废械吞噬者·饕餮",
+    enemy_type: "glutton",
+    description: "它不是被制造的，而是'生长'出来的。在王朝崩溃的废墟中，一个简单的'垃圾处理'核心程序发生了可怕的变异，它开始主动吞噬遇到的一切机械体，并将它们的功能和结构粗暴地整合到自己身上。它代表着纯粹的、无意识的毁灭与贪婪，是地牢中会移动的天灾。击败它需要攻击其身上不断变化的弱点核心。",
+    asset_url: "/assets/enemy/glutton/glutton.webp",
+    model_url: "/assets/enemy/glutton/glutton.glb",
+    drop_items: [
+      (RecallGear, (5, 7)),
+      (ResonantCrystal, (5, 7)),
+      (RefinedCopper, (3, 4)),
+      (HeartCrystalDust, (3, 4)),
+    ],
+    summon_cost: ResourceCost::new([
+      (RecallGear, 40),
+      (ResonantCrystal, 40),
+      (HeartCrystalDust, 40),
+      (RefinedCopper, 40),
+      (SpiritalSpark, 15),
+    ]),
+  },
+]
+
+///|
+/// 敌人信息映射表（敌人名称到配置的快速查找）
+///
+/// 该映射表将敌人名称映射到对应的敌人配置数据，用于根据敌人名称快速查找敌人
+/// 信息。映射表从 enemy_list 数组构建，使用敌人名称作为键。这用于在游戏逻辑
+/// 中根据敌人名称获取敌人配置，如生成敌人时根据名称查找配置、召唤敌人时根据
+/// 名称查找配置等。
+///
+/// 构建方式：
+/// - 从 enemy_list 数组迭代
+/// - 将每个敌人配置映射为 (敌人名称, 敌人配置) 的键值对
+/// - 使用 Map::from_iter 构建映射表
+///
+/// 使用场景：
+/// - 根据敌人名称查找敌人配置时
+/// - 生成敌人时获取敌人属性时
+/// - 召唤敌人时获取召唤消耗时
+/// - 需要快速查找敌人信息时
+///
+/// 注意事项：
+/// - 键是敌人名称（String），值是敌人配置（EnemyBase）
+/// - 映射表在程序启动时构建，不会动态更新
+/// - 如果敌人名称不存在，查找会返回 None
+/// - 用于游戏逻辑中的敌人配置查找
+/// - BOSS敌人的名称包含"（BOSS）"前缀
+let enemy_info_map : Map[String, EnemyBase] = Map::from_iter(
+  enemy_list.iter().map(enemy => (enemy.name, enemy)),
+)

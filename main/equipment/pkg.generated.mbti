@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Lampese/MGPIC_2025/equipment"
+
+import(
+  "Lampese/MGPIC_2025/attribute"
+)
+
+// Values
+let equipment_list : FixedArray[EquipmentBase]
+
+let equipment_map : Map[String, EquipmentBase]
+
+// Errors
+
+// Types and methods
+pub struct Equipment {
+  equipment_base : EquipmentBase
+  id : Int
+}
+fn Equipment::new(EquipmentBase) -> Self
+impl Eq for Equipment
+impl ToJson for Equipment
+
+pub struct EquipmentBase {
+  name : String
+  description : String
+  resource_url : String
+  attribute : @attribute.Attribute
+}
+impl Eq for EquipmentBase
+impl ToJson for EquipmentBase
+
+// Type aliases
+
+// Traits
+
